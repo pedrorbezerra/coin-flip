@@ -115,3 +115,31 @@
   height: 100%;
   object-fit: cover;
 }
+
+.fireworks-animation-medium {
+  width: 90px;
+  height: 90px;
+  margin: 30px;
+  background: url("https://res.cloudinary.com/alianzasynegocios/image/upload/v1573123078/sprite-2_zdwo4d.png")
+    no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  animation: fireworkMedium 1s steps(30);
+  opacity: 0;
+  position: absolute;
+  bottom: -70px;
+}
+.fireworks-animation-medium--active {
+  background-position: -2700px 0;
+  transition: background 1s steps(30);
+  opacity: 1;
+}
+
+@keyframes fireworksMedium {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -2700px 0;
+  }
+}

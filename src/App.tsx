@@ -7,13 +7,27 @@ import tails from './assets/tails.png';
 function App() {
   const [flipping, setFlipping] = useState(false);
   const [currentFace, setCurrentFace] = useState('heads');
+  const [activeAnimation, setActiveAnimation] = useState(false);
+  const [result, setResult] = useState<'heads' | 'tails' | null>(null);
 
   const handleFlip = () => {
+    setResult(null);
     setFlipping(true);
     setTimeout(() => {
       setFlipping(false);
-      setCurrentFace(Math.random() < 0.5 ? 'heads' : 'tails');
+      const result = Math.random() < 0.5 ? 'heads' : 'tails';
+      setCurrentFace(result);
+      handleResult(result);
     }, 1200);
+  };
+
+  const handleResult = (result: 'heads' | 'tails') => {
+    setActiveAnimation(true);
+
+    setTimeout(() => {
+      setActiveAnimation(false);
+      setResult(result);
+    }, 1000);
   };
 
   const startY = useRef<number | null>(null);
@@ -37,8 +51,6 @@ function App() {
 
     if (startY.current !== null && startY.current - endY > 30) {
       handleFlip();
-    } else {
-      // alert('arraste para cima');
     }
 
     startY.current = null;
@@ -53,9 +65,7 @@ function App() {
         onTouchEnd={handleEnd}
       >
         <div className='flex justify-center flex-col items-center'>
-          <h1 className='text-3xl font-extrabold uppercase'>
-            Cara ou Coroa
-          </h1>
+          <h1 className='text-3xl font-extrabold uppercase'>Cara ou Coroa</h1>
           <div className='px-4 text-center font-medium'>
             Arraste para cima para girar a moeda
             <br />
@@ -63,6 +73,18 @@ function App() {
               (igualzinho você faria com uma moeda real)
             </span>
           </div>
+        </div>
+
+        <div className='flex justify-center relative'>
+          <div
+            className={clsx('fireworks-animation fireworks-animation-medium', {
+              'fireworks-animation-medium--active': activeAnimation,
+            })}
+          />
+
+          <span className='text-5xl font-extrabold uppercase text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to bg-pink-500'>
+            {result && (result === 'heads' ? 'Cara!' : 'Coroa!')}
+          </span>
         </div>
 
         <div
