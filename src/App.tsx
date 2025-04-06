@@ -53,9 +53,12 @@ function App() {
         onTouchEnd={handleEnd}
       >
         <div className='flex justify-center flex-col items-center'>
-          <h1 className='text-3xl font-extrabold mt-4 uppercase'>Cara ou Coroa</h1>
-          <div className='px-4'>
+          <h1 className='text-3xl font-extrabold mt-4 uppercase'>
+            Cara ou Coroa
+          </h1>
+          <div className='px-4 text-center font-medium'>
             Arraste para cima para girar a moeda
+            <br />
             <span className='text-transparent font-bold bg-clip-text bg-gradient-to-r from-cyan-500 to bg-pink-500'>
               (igualzinho você faria com uma moeda real)
             </span>
