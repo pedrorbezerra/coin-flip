@@ -1,0 +1,117 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+.wrapper { 
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.coin-circle {
+  will-change: filter;
+  transition: filter 400ms;
+}
+
+
+.coin-circle:hover {
+  filter: drop-shadow(0 0 2em #fbec61aa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotateX(0deg);
+    transform-style: preserve-3d;
+
+  }
+  to {
+    transform: rotateX(360deg);
+    transform-style: preserve-3d;
+
+  }
+}
+
+@keyframes flip-throw {
+  0% {
+    transform: translateY(0);
+  }
+
+  50%{
+    transform: translateY(-280px);
+
+  }
+}
+
+.paused {
+  animation: none !important;
+}
+
+
+.flip-box {
+  /* perspective: 1000px; */
+
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+  /* perspective: 1000px; */
+}
+
+
+
+
+.flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transform-style: preserve-3d;
+  animation: logo-spin infinite 0.4s linear;
+}
+
+.flipping {
+  transform-style: preserve-3d;
+
+  animation: flip-throw 1.3s ease-in-out forwards;
+  /* animation: spin-slowdown 4.3s linear forwards; */
+
+}
+
+
+
+.flip-box-front, .flip-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-box-front {
+  background-color: transparent;
+  color: black;
+  transform: rotateX(0deg);
+
+}
+
+.flip-box-back {
+  background-color: transparent;
+  color: white;
+  transform: rotateX(180deg);
+}
+
+.coin-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.coin-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
