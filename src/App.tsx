@@ -46,14 +46,14 @@ function App() {
   return (
     <>
       <div
-        className='wrapper flex flex-col place-content-stretch'
+        className='wrapper flex flex-col justify-between py-8'
         onMouseDown={handleGesture}
         onMouseUp={handleEnd}
         onTouchStart={handleGesture}
         onTouchEnd={handleEnd}
       >
         <div className='flex justify-center flex-col items-center'>
-          <h1 className='text-3xl font-extrabold mt-4 uppercase'>
+          <h1 className='text-3xl font-extrabold uppercase'>
             Cara ou Coroa
           </h1>
           <div className='px-4 text-center font-medium'>
