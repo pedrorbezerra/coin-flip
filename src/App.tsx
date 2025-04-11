@@ -1,14 +1,16 @@
 import clsx from 'clsx';
 import './App.css';
 import { useRef, useState } from 'react';
-import heads from './assets/heads.png';
-import tails from './assets/tails.png';
+
+import { useTranslations } from './hooks/useTranslations';
+import Coin from './components/Coin';
 
 function App() {
   const [flipping, setFlipping] = useState(false);
-  const [currentFace, setCurrentFace] = useState('heads');
+  const [currentFace, setCurrentFace] = useState<'heads' | 'tails'>('heads');
   const [activeAnimation, setActiveAnimation] = useState(false);
   const [result, setResult] = useState<'heads' | 'tails' | null>(null);
+  const { t, currentLang, setCurrentLang } = useTranslations();
 
   const handleFlip = () => {
     setResult(null);
@@ -64,15 +66,26 @@ function App() {
         onTouchStart={handleGesture}
         onTouchEnd={handleEnd}
       >
-        <div className='flex justify-center flex-col items-center'>
-          <h1 className='text-3xl font-extrabold uppercase'>Cara ou Coroa</h1>
+        <div className='flex justify-center flex-col items-center text-[#352f36]'>
+          <h1 className='text-3xl font-extrabold uppercase'>{t('title')}</h1>
           <div className='px-4 text-center font-medium'>
-            Arraste para cima para girar a moeda
+            {t('subtitle')}
             <br />
             <span className='text-transparent font-bold bg-clip-text bg-gradient-to-r from-cyan-500 to bg-pink-500'>
-              (igualzinho você faria com uma moeda real)
+              ({t('disclaimer')})
             </span>
           </div>
+        </div>
+
+        <div className='absolute bottom-4 right-4'>
+          <button
+            onClick={() => setCurrentLang(currentLang === 'en' ? 'ptBr' : 'en')}
+            className='w-12 h-12 !rounded-full flex items-center justify-center'
+          >
+            <span className='text-3xl'>
+              {currentLang === 'en' ? '🇧🇷' : '🇺🇸'}
+            </span>
+          </button>
         </div>
 
         <div className='flex justify-center relative'>
@@ -83,34 +96,11 @@ function App() {
           />
 
           <span className='text-5xl font-extrabold uppercase text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to bg-pink-500'>
-            {result && (result === 'heads' ? 'Cara!' : 'Coroa!')}
+            {result && (result === 'heads' ? t('heads') : t('tails'))}
           </span>
         </div>
 
-        <div
-          className={clsx('flip-box coin-circle flipping', {
-            paused: !flipping,
-          })}
-        >
-          <div className={clsx('flip-box-inner', { paused: !flipping })}>
-            <div className='flip-box-front'>
-              <img
-                width={300}
-                src={currentFace === 'heads' ? heads : tails}
-                alt=''
-                draggable={false}
-              />
-            </div>
-            <div className='flip-box-back'>
-              <img
-                width={300}
-                src={currentFace === 'heads' ? tails : heads}
-                alt=''
-                draggable={false}
-              />
-            </div>
-          </div>
-        </div>
+        <Coin isFliping={flipping} currentFace={currentFace} />
       </div>
     </>
   );
